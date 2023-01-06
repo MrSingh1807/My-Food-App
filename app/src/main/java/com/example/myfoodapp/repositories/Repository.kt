@@ -2,10 +2,10 @@ package com.example.myfoodapp.repositories
 
 import com.example.myfoodapp.data.LocalDataSource
 import com.example.myfoodapp.data.RemoteDataSource
-import dagger.hilt.android.scopes.ActivityRetainedScoped
+import dagger.hilt.android.scopes.ViewModelScoped
 import javax.inject.Inject
 
-@ActivityRetainedScoped
+@ViewModelScoped
 class Repository @Inject constructor(
     remoteDataSource: RemoteDataSource,
     localDataSource: LocalDataSource

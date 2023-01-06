@@ -1,18 +1,20 @@
 package com.example.myfoodapp.ui.fragments.overview
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import coil.load
 import com.example.myfoodapp.Constants.Companion.RECIPES_RESULT_KEY
 import com.example.myfoodapp.R
+import com.example.myfoodapp.bindingadapters.RecipesRowBinding
 import com.example.myfoodapp.databinding.FragmentOverviewBinding
 import com.example.myfoodapp.models.Result
 import dagger.hilt.android.AndroidEntryPoint
-import org.jsoup.Jsoup
 
 @AndroidEntryPoint
 class OverviewFragment : Fragment() {
@@ -33,48 +35,34 @@ class OverviewFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val args =  arguments
-        val myBundle: Result? = args?.getParcelable(RECIPES_RESULT_KEY)
+        val args = arguments
+        val myBundle = args!!.getParcelable<Result>(RECIPES_RESULT_KEY) as Result
 
 
-        binding.mainImgVw.load(myBundle?.image){
+        binding.mainImgVw.load(myBundle.image) {
             crossfade(600)
             error(R.drawable.ic_error_placeholder)
         }
-        binding.titleTxtVw.text = myBundle?.title
-        binding.likesTxtVw.text = myBundle?.aggregateLikes.toString()
-        binding.timeTxtVw.text = myBundle?.readyInMinutes.toString()
-        myBundle?.summary.let {
-            val summery = Jsoup.parse(it).text() ?: "Empty Summery"
-            binding.summaryTxtVw.text = summery
+        binding.titleTxtVw.text = myBundle.title
+        binding.likesTxtVw.text = myBundle.aggregateLikes.toString()
+        binding.timeTxtVw.text = myBundle.readyInMinutes.toString()
+
+        RecipesRowBinding.parseHtml(binding.summaryTxtVw, myBundle.summary)
+
+        updateColor(myBundle.vegetarian, binding.vegetarianTxtVw, binding.vegetarianImgVw)
+        updateColor(myBundle.vegan, binding.veganTxtVw, binding.veganImgVw)
+        updateColor(myBundle.glutenFree, binding.glutenFreeTxtVw, binding.glutenFreeImgVw)
+        updateColor(myBundle.dairyFree, binding.dairyFreeTxtVw, binding.dairyFreeImgVw)
+        updateColor(myBundle.veryHealthy, binding.healthyTxtVw, binding.healthyImgVw)
+        updateColor(myBundle.cheap, binding.cheapTxtVw, binding.cheapImgVw)
+    }
+
+    private fun updateColor(stateIsOn: Boolean, textView: TextView, imageView: ImageView) {
+        if (stateIsOn){
+            imageView.setColorFilter(ContextCompat.getColor(requireContext(), R.color.green))
+            textView.setTextColor(ContextCompat.getColor(requireContext(), R.color.green))
         }
 
-        if(myBundle?.vegetarian == true){
-            binding.vegetarianImgVw.setColorFilter(ContextCompat.getColor(requireContext(), R.color.green))
-            binding.vegetarianTxtVw.setTextColor(ContextCompat.getColor(requireContext(), R.color.green))
-        }
-
-        if(myBundle?.vegan == true){
-            binding.veganImgVw.setColorFilter(ContextCompat.getColor(requireContext(), R.color.green))
-            binding.veganTxtVw.setTextColor(ContextCompat.getColor(requireContext(), R.color.green))
-        }
-
-        if(myBundle?.glutenFree == true){
-            binding.glutenFreeImgVw.setColorFilter(ContextCompat.getColor(requireContext(), R.color.green))
-            binding.glutenFreeTxtVw.setTextColor(ContextCompat.getColor(requireContext(), R.color.green))
-        }
-        if(myBundle?.dairyFree == true){
-            binding.dairyFreeImgVw.setColorFilter(ContextCompat.getColor(requireContext(), R.color.green))
-           binding.dairyFreeTxtVw.setTextColor(ContextCompat.getColor(requireContext(), R.color.green))
-        }
-        if(myBundle?.veryHealthy == true){
-            binding.healthyImgVw.setColorFilter(ContextCompat.getColor(requireContext(), R.color.green))
-            binding.healthyTxtVw.setTextColor(ContextCompat.getColor(requireContext(), R.color.green))
-        }
-        if(myBundle?.cheap == true){
-            binding.cheapImgVw.setColorFilter(ContextCompat.getColor(requireContext(), R.color.green))
-            binding.cheapTxtVw.setTextColor(ContextCompat.getColor(requireContext(), R.color.green))
-        }
     }
 
     override fun onDestroyView() {
