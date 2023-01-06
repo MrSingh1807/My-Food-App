@@ -19,6 +19,7 @@ import com.example.myfoodapp.ui.fragments.instructions.InstructionsFragment
 import com.example.myfoodapp.ui.fragments.overview.OverviewFragment
 import com.example.myfoodapp.viewmodels.MainViewModel
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -55,10 +56,14 @@ class DetailsActivity : AppCompatActivity() {
         val resultBundle = Bundle()
         resultBundle.putParcelable(RECIPES_RESULT_KEY, args.result)
 
-        val pagerAdapter = PagerAdapter(resultBundle, fragments, titles, supportFragmentManager)
-        binding.viewPager.adapter = pagerAdapter
+        val pagerAdapter = PagerAdapter(resultBundle, fragments, this)
 
-        binding.tabLayout.setupWithViewPager(binding.viewPager)
+        binding.viewPager2.apply {
+            adapter = pagerAdapter
+        }
+        TabLayoutMediator(binding.tabLayout,binding.viewPager2){ tab, position ->
+            tab.text = titles[position]
+        }.attach()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
