@@ -5,8 +5,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.*
 import android.widget.Toast
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import com.example.myfoodapp.Constants.Companion.API_KEY
 import com.example.myfoodapp.R
@@ -35,6 +38,25 @@ class FoodJokeFragment : Fragment() {
         binding.mainViewModel = mainViewModel
 
         setHasOptionsMenu(true)
+        val menuHost : MenuHost = requireActivity()
+        menuHost.addMenuProvider(object : MenuProvider{
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.food_joke_menu, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                if (menuItem.itemId == R.id.shareFoodJoke_menu){
+                    val shareIntent = Intent().apply {
+                        this.action = Intent.ACTION_SEND
+                        this.putExtra(Intent.EXTRA_TEXT, foodJoke)
+                        this.type = "text/plain"
+                    }
+                    startActivity(shareIntent)
+                }
+                return true
+            }
+
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
         return binding.root
     }
 
@@ -58,22 +80,6 @@ class FoodJokeFragment : Fragment() {
                 is NetworkResult.Loading -> Log.d("FoodJokeFragment", "Loading")
             }
         }
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.food_joke_menu, menu)
-    }
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.shareFoodJoke_menu){
-            val shareIntent = Intent().apply {
-                this.action = Intent.ACTION_SEND
-                this.putExtra(Intent.EXTRA_TEXT, foodJoke)
-                this.type = "text/plain"
-            }
-            startActivity(shareIntent)
-        }
-
-        return super.onOptionsItemSelected(item)
     }
 
     fun loadDataFromCache() {
