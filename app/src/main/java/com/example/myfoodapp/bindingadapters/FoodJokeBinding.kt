@@ -77,6 +77,11 @@ class FoodJokeBinding {
             }
             if (apiResponse is NetworkResult.Success){
                 view.visibility = View.INVISIBLE
+            } else if(apiResponse is NetworkResult.Loading){
+                view.visibility = View.INVISIBLE
+            }
+            else {
+                view.visibility = View.VISIBLE
             }
         }
     }

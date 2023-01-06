@@ -103,10 +103,9 @@
 
                 <TextView
                     android:id="@+id/heart_textView"
-                    setNumberOfLikes="@{result.aggregateLikes}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="100"
+                    android:text="@{String.valueOf(result.aggregateLikes)}"
                     android:textAlignment="center"
                     android:textColor="@color/red"
                     app:layout_constraintEnd_toEndOf="@id/heart_imageView"
@@ -125,10 +124,9 @@
 
                 <TextView
                     android:id="@+id/clock_textView"
-                    setNumberOfMinutes="@{result.readyInMinutes}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="100"
+                    android:text="@{String.valueOf(result.readyInMinutes)}"
                     android:textAlignment="center"
                     android:textColor="@color/yellow"
                     app:layout_constraintEnd_toEndOf="@+id/clock_imageView"
