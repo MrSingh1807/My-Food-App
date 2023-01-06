@@ -31,18 +31,18 @@ class NetworkListener : ConnectivityManager.NetworkCallback() {
             return isNetworkAvailable
         }
 
-        return when{
+        return when {
             netCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> {
                 isNetworkAvailable.value = true
-                return isNetworkAvailable
+                isNetworkAvailable
             }
             netCapabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> {
                 isNetworkAvailable.value = true
-                return isNetworkAvailable
+                isNetworkAvailable
             }
             else -> {
                 isNetworkAvailable.value = false
-                return isNetworkAvailable
+                isNetworkAvailable
             }
         }
 
