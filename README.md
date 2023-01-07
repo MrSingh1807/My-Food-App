@@ -4,41 +4,41 @@
 3. we send GET Request to our API and receive a list of food recipes as a Response. Also our app is able to handle no internet connection, and store or cache the data localy to our database when it's needed.
 
 # Used Components
-Develop a fully functional Android App
-Food Recipes Android app
-ROOM Database
-Dependency Injection - Dagger-Hilt
-Retrofit
-Offline Cache
-Local & Remote Data Sources
-Kotlin
-Kotlin Coroutines
-Android Architecture Component
-Navigation Component
-DataStore Preferences
-Data Binding
-ViewModel
-AndroidViewModel
-LiveData
-Flow
-DiffUtil
-RecyclerView
-Search Recyclerview
-REST API
-Client - Server Communication
-Send HTTP Request
-Parse HTTP Response
-Dark and Light Theme
-Night Mode
-Motion Layout
-Material Components
-Material Design
-Create Shimmer Effect
-Database Inspector
-ViewPager
-ViewPager2
-Create Contextual Action Mode
-Share Data with Other Apps
-Create Modal Bottom Sheet
-Nice looking UI Design
-Migration from kotlin-android-extensions plugin
+1. Develop a fully functional Android App
+2. Food Recipes Android app
+3. ROOM Database
+4. Dependency Injection - Dagger-Hilt
+5. Retrofit
+6. Offline Cache
+7. Local & Remote Data Sources
+8. Kotlin
+9. Kotlin Coroutines
+10. Android Architecture Component
+11. Navigation Component
+12. DataStore Preferences
+13. Data Binding
+14. ViewModel
+15. AndroidViewModel
+16. LiveData
+17. Flow
+18. DiffUtil
+19. RecyclerView
+20. Search Recyclerview
+21. REST API
+22. Client - Server Communication
+23. Send HTTP Request
+24. Parse HTTP Response
+25. Dark and Light Theme
+26. Night Mode
+27. Motion Layout
+28. Material Components
+29. Material Design
+30. Create Shimmer Effect
+31. Database Inspector
+32. ViewPager
+33. ViewPager2
+34. Create Contextual Action Mode
+35. Share Data with Other Apps
+36. Create Modal Bottom Sheet
+37. Nice looking UI Design
+38. Migration from kotlin-android-extensions plugin
